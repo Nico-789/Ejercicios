@@ -1,52 +1,32 @@
-class Cajero:
-    def __init__(self, saldo, clave):
-        self.saldo = saldo
-        self.clave = clave
-        self.intentos = 0
+cantidad_padwans = int(input("Ingrese la cantidad de padwans: "))
+contado_lado_oscuro = 0
 
-    def validar_clave(self):
-        while self.intentos < 3:
-            clave_ingresada = input("Ingrese su clave: ")
-            if clave_ingresada == self.clave:
-                return True
-            else:
-                self.intentos += 1
-                print("Clave incorrecta")
-        return False
+for i in range(cantidad_padwans):
+    cantidad_midicloras = int(input("Ingrese la cantidad de midicloras: "))
+    
+    numero = cantidad_midicloras
+    residuos = []
 
-    def consultar_saldo(self):
-        print("Su saldo es:", self.saldo)
+    while numero > 0:
+        residuo = numero % 5
+        residuos.append(residuo)
+        numero = numero // 5
 
-    def retirar_saldo(self):
-        monto = int(input("Ingrese el monto que desea retirar: "))
-        if monto > self.saldo:
-            print("Saldo insuficiente")
-        elif monto <= 0:
-            print("Monto inválido")
-        else:
-            self.saldo -= monto
-            print("Transacción exitosa")
+    residuos.reverse()
 
+    cantidad_digitos = residuos.count(4)
 
-# 🔹 PROGRAMA PRINCIPAL
-cajero = Cajero(500000, "1234")
+    if cantidad_digitos > 1:
+        print("SI")
+        contado_lado_oscuro += 1
+    else:
+        print("NO")
 
-if cajero.validar_clave():
-    while True:
-        print("\n1. Retirar")
-        print("2. Consultar saldo")
-        print("3. Salir")
-
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == "1":
-            cajero.retirar_saldo()
-        elif opcion == "2":
-            cajero.consultar_saldo()
-        elif opcion == "3":
-            print("Gracias por usar el cajero")
-            break
-        else:
-            print("Opción inválida")
+if cantidad_padwans > 0:
+    porcentaje = (contado_lado_oscuro / cantidad_padwans) * 100
+    print("Porcentaje:", porcentaje)
 else:
-    print("Tarjeta bloqueada")
+    print("No hay padawans para evaluar")
+
+
+
